@@ -1,19 +1,17 @@
-require './config/environment'
-
 class TweetsController < ApplicationController
   
-  get '/tweets' do
+  get '/tweets/new' do
     if logged_in?
-      @tweets = Tweet.all
-      erb :'tweets/tweets'
+      erb :'/tweets/new'
     else
       redirect to '/login'
     end
   end
-
-  get '/tweets/new' do
+  
+  get '/tweets' do
     if logged_in?
-      erb :'tweets/create_tweet'
+      @tweet = Tweet.all
+      erb :'/tweets/tweets'
     else
       redirect to '/login'
     end
@@ -21,6 +19,7 @@ class TweetsController < ApplicationController
 
   post '/tweets' do
     if logged_in?
+      binding.pry
       if params[:content] == ""
         redirect to "/tweets/new"
       else
@@ -32,14 +31,14 @@ class TweetsController < ApplicationController
         end 
       end
     else 
-      redirect to '/login' 
+      #redirect to '/login' 
     end
   end
 
-  get '/tweets/:id' do
+ get '/tweets/:id' do
     if logged_in?
       @tweet = Tweet.find_by_id(params[:id])
-      erb :'tweets/show_tweet'
+      erb :'/tweets/show_tweet'
     else
       redirect to '/login'
     end
@@ -49,7 +48,7 @@ class TweetsController < ApplicationController
     if logged_in?
       @tweet = Tweet.find_by_id(params[:id])
       if @tweet && @tweet.user == current_user
-        erb :'tweets/edit_tweet'
+        erb :'/tweets/edit_tweet'
       else
         redirect to '/tweets'
       end
@@ -91,3 +90,4 @@ class TweetsController < ApplicationController
     end
   end
 end
+  
