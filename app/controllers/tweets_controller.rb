@@ -19,7 +19,6 @@ class TweetsController < ApplicationController
 
   post '/tweets' do
     if logged_in?
-      binding.pry
       if params[:content] == ""
         redirect to "/tweets/new"
       else
@@ -31,7 +30,7 @@ class TweetsController < ApplicationController
         end 
       end
     else 
-      #redirect to '/login' 
+      redirect to '/login' 
     end
   end
 
