@@ -30,7 +30,7 @@ class TweetsController < ApplicationController
         end 
       end
     else 
-      #redirect to '/login' 
+      redirect to '/login' 
     end
   end
 
